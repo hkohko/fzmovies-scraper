@@ -3,16 +3,7 @@ use anyhow::Result;
 use scraper::{ElementRef, Html, Selector};
 use std::io::Read;
 
-fn scraper_main() {
-    let _ = scp();
-}
-pub fn scp() -> Result<()> {
-    let page = {
-        let mut f = std::fs::File::open(ProjPath::res_path()?.join("example.html"))?;
-        let mut s = String::new();
-        f.read_to_string(&mut s)?;
-        s
-    };
+pub fn scp(page: String) -> Result<()> {
     let main_div = {
         let div_selector = Selector::parse("div").expect("div Selector Error");
         let td_selector = Selector::parse("td").expect("td Selector Error");
@@ -35,7 +26,6 @@ pub fn scp() -> Result<()> {
             .collect();
         for atag in a {
             dbg!(atag);
-            break;
         }
     };
     Ok(())
