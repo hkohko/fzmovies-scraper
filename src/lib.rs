@@ -1,6 +1,7 @@
 pub mod core {
-    pub mod path;
     pub mod build_url;
+    pub mod path;
+    pub mod scraper;
 }
 pub mod data {
     pub mod constant;
