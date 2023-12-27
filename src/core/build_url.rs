@@ -9,6 +9,5 @@ pub fn build_url(genre: &str, sort: &str, page: &str) -> Result<Url> {
         url.as_str(),
         &[("catID", "2"), ("genre", genre), ("by", sort), ("pg", page)],
     )?;
-
     Ok(params)
 }

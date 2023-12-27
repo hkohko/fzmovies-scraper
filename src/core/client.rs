@@ -1,5 +1,3 @@
-use crate::core::build_url;
-use crate::data::constant::BASE_URL;
 use anyhow::Result;
 use ureq;
 use url::Url;
