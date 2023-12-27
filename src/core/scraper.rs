@@ -1,10 +1,10 @@
-use select::predicate::{Name,Attr};
 use select::document::Document;
+use select::predicate::{Attr, Name};
 pub fn scp(page: String) {
     let document = Document::from(page.as_str());
-    
+
     let main_divs = document.find(Attr("class", "mainbox"));
-    
+
     let mut td_vec = Vec::new();
     for div in main_divs {
         let tds = div.find(Name("td"));
@@ -14,7 +14,7 @@ pub fn scp(page: String) {
             }
         }
     }
-    
+
     let mut hrefs = Vec::new();
     for td in td_vec.iter() {
         let a_tags = td.find(Name("a"));
