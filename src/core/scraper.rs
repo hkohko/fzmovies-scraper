@@ -1,6 +1,7 @@
 use select::document::Document;
 use select::predicate::{Attr, Name};
-pub fn scp(page: String) {
+
+pub fn scp(page: String) -> Vec<String>{
     let document = Document::from(page.as_str());
 
     let main_divs = document.find(Attr("class", "mainbox"));
@@ -19,8 +20,8 @@ pub fn scp(page: String) {
     for td in td_vec.iter() {
         let a_tags = td.find(Name("a"));
         for a in a_tags {
-            hrefs.push(a.attr("href").unwrap_or("None"));
+            hrefs.push(a.attr("href").unwrap_or("None").to_string());
         }
     }
-    dbg!(&hrefs);
+    hrefs
 }
