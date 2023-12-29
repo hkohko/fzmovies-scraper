@@ -8,9 +8,9 @@ pub mod core {
     pub mod path;
 }
 pub mod download_link {
+    pub mod build_url;
     pub mod db;
     pub mod scraper;
-    pub mod build_url;
 }
 pub mod movie_page {
     pub mod build_url;
