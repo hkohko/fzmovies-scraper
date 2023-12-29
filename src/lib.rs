@@ -4,17 +4,20 @@ use std::fs;
 use std::path::PathBuf;
 
 pub mod core {
-    pub mod build_url;
     pub mod client;
-    pub mod db;
     pub mod path;
+}
+pub mod download_link {
     pub mod scraper;
+    pub mod db;
+}
+pub mod movie_page {
+    pub mod build_url;
+    pub mod scraper;
+    pub mod db;
 }
 pub mod data {
     pub mod constant;
-}
-pub mod opts {
-    //    pub mod example;
 }
 pub struct DBPath<'a> {
     pub name: &'a str,
