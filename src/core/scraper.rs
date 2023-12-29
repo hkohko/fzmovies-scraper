@@ -1,7 +1,7 @@
 use select::document::Document;
 use select::predicate::{Attr, Name};
 
-pub fn scp(page: String) -> Vec<String>{
+pub fn scp(page: String) -> Vec<String> {
     let document = Document::from(page.as_str());
 
     let main_divs = document.find(Attr("class", "mainbox"));

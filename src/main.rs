@@ -1,4 +1,4 @@
-use fzmovies::core::{build_url::build_url, client::client, scraper::scp, db::db_main};
+use fzmovies::core::{build_url::build_url, client::client, db::db_main, scraper::scp};
 
 fn main() {
     for n in 1..=272 {
