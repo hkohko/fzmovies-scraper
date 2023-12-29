@@ -1,12 +1,24 @@
 use fzmovies::core::client::client;
-use fzmovies::download_link::db;
+use fzmovies::download_link::{db, build_url, scraper};
 use fzmovies::movie_page::{build_url::build_url, db::db_main, scraper::scp};
 
 fn main() {
+    let _ = download_link_scraper();
+}
+fn download_link_scraper() {
     let read = db::db_main();
-    if let Ok(val) = read {
-        println!("{:?}", val);
-    }
+    let urls = match read {
+        Ok (val) => build_url::build_url(val),
+        Err(e) => panic!("{e}"),
+    };
+    let resp = match urls {
+        Ok(val) => client(&val),
+        Err(e) => panic!("{}", e)
+    };
+    match resp {
+        Ok(val) => scraper::scp_link(val.as_str()),
+        Err(e) => panic!("{e}"),
+    }   
 }
 fn movie_page_scraper() {
     for n in 1..=272 {
