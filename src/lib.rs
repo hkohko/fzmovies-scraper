@@ -8,13 +8,13 @@ pub mod core {
     pub mod path;
 }
 pub mod download_link {
-    pub mod scraper;
     pub mod db;
+    pub mod scraper;
 }
 pub mod movie_page {
     pub mod build_url;
-    pub mod scraper;
     pub mod db;
+    pub mod scraper;
 }
 pub mod data {
     pub mod constant;
@@ -35,5 +35,5 @@ impl<'a> DBPath<'a> {
 }
 #[derive(Debug)]
 pub struct Data {
-    path: String
+    path: String,
 }

@@ -1,5 +1,3 @@
 use select;
 
-fn scp_link(page: &str) {
-    
-}
+fn scp_link(page: &str) {}
