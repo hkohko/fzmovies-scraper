@@ -3,7 +3,10 @@ use fzmovies::core::client::client;
 use fzmovies::download_link::db;
 
 fn main() {
-    let _ = db::db_main();
+    let read = db::db_main();
+    if let Ok(val) = read {
+        println!("{:?}", val);
+    }
 }
 fn movie_page_scraper() {
     for n in 1..=272 {

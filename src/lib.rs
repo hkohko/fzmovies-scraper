@@ -33,3 +33,7 @@ impl<'a> DBPath<'a> {
         Ok(db_folder.join(name.as_str()))
     }
 }
+#[derive(Debug)]
+pub struct Data {
+    path: String
+}

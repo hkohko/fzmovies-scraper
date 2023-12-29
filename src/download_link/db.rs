@@ -1,17 +1,12 @@
 use rusqlite::Connection;
-use anyhow::Result;
-use crate::DBPath;
+use crate::{DBPath, Data};
 
-#[derive(Debug)]
-struct Data {
-    path: String
-}
 fn connect() -> rusqlite::Result<Connection> {
     let db_path = DBPath {name: "movie"}.new().expect("");
     let conn = Connection::open(db_path)?;
     Ok(conn)
 }
-fn read_db(conn: &Connection) -> rusqlite::Result<()>{
+fn read_db(conn: &Connection) -> rusqlite::Result<Vec<Data>> {
     let query = "SELECT link FROM movie";
     let mut stmt = conn.prepare(query)?;
     let content_iter = stmt.query_map([], |row| {
@@ -19,14 +14,12 @@ fn read_db(conn: &Connection) -> rusqlite::Result<()>{
             path: row.get(0)?,
         })
     })?;
-    for data in content_iter {
-        println!("{:?}", data?)
-    }
-    Ok(())
+    let vec = content_iter
+        .map(|val| val.unwrap_or(Data {path: "None".to_string()}))
+        .collect::<Vec<Data>>();
+    Ok(vec)
 }
-pub fn db_main() -> Result<()> {
+pub fn db_main() -> rusqlite::Result<Vec<Data>> {
     let conn = connect()?;
-    let _ = read_db(&conn).expect("");
-    
-    Ok(())
+    Ok(read_db(&conn).expect(""))
 }
