@@ -20,10 +20,15 @@ pub mod data {
     pub mod constant;
 }
 pub struct DBPath<'a> {
-    pub name: &'a str,
+    name: &'a str,
 }
 impl<'a> DBPath<'a> {
-    pub fn new(&self) -> Result<PathBuf> {
+    pub fn new(n: &str) -> DBPath {
+        DBPath {
+            name: n
+        }
+    }
+    pub fn create_path(&self) -> Result<PathBuf> {
         let cur_dir = env::current_dir()?;
         let db_folder = cur_dir.join("db");
         if !db_folder.exists() {
@@ -44,7 +49,12 @@ impl<'a> ResPath<'a> {
     fn cur_dir() -> Result<std::path::PathBuf> {
         Ok(env::current_dir()?)
     }
-    pub fn new(&self) -> Result<std::path::PathBuf> {
+    pub fn new(filename: &str) -> ResPath {
+        ResPath {
+            name: filename,
+        }
+    }
+    pub fn create_path(&self) -> Result<std::path::PathBuf> {
         let res_path = ResPath::cur_dir()?.join("res");
         if !res_path.exists() {
             std::fs::create_dir(&res_path).expect(format!("Failed to create dir: {:?}\n\n", &res_path).as_str());

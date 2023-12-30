@@ -9,8 +9,8 @@ pub fn db_main(data: Vec<String>) -> Result<()> {
     Ok(())
 }
 fn connect() -> rusqlite::Result<Connection> {
-    let db_path = DBPath { name: "movie" }.new().expect("");
-    let conn = Connection::open(db_path);
+    let db_path = DBPath::new("movie");
+    let conn = Connection::open(db_path.create_path().expect(""));
     conn
 }
 fn create_table(conn: &Connection) -> Result<()> {

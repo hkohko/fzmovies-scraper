@@ -2,8 +2,8 @@ use crate::{DBPath, Data};
 use rusqlite::Connection;
 
 fn connect() -> rusqlite::Result<Connection> {
-    let db_path = DBPath { name: "movie" }.new().expect("");
-    let conn = Connection::open(db_path)?;
+    let db_path = DBPath::new("movie");
+    let conn = Connection::open(db_path.create_path().expect(""))?;
     Ok(conn)
 }
 fn read_db(conn: &Connection) -> rusqlite::Result<Vec<Data>> {
