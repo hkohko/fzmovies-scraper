@@ -5,7 +5,7 @@ pub fn scp_main(page: &str) {
     let vec = scp_link(page);
     let quality = choose_quality(&vec);
 }
-fn scp_link(page: &str) -> Vec<(String, String)>{
+fn scp_link(page: &str) -> Vec<(String, String)> {
     let doc = Document::from(page);
     let uls = doc.find(Name("ul"));
 

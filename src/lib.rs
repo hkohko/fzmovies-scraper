@@ -24,9 +24,7 @@ pub struct DBPath<'a> {
 }
 impl<'a> DBPath<'a> {
     pub fn new(n: &str) -> DBPath {
-        DBPath {
-            name: n
-        }
+        DBPath { name: n }
     }
     pub fn create_path(&self) -> Result<PathBuf> {
         let cur_dir = env::current_dir()?;
@@ -43,21 +41,20 @@ pub struct Data {
     path: String,
 }
 pub struct ResPath<'a> {
-    name: &'a str
+    name: &'a str,
 }
 impl<'a> ResPath<'a> {
     fn cur_dir() -> Result<std::path::PathBuf> {
         Ok(env::current_dir()?)
     }
     pub fn new(filename: &str) -> ResPath {
-        ResPath {
-            name: filename,
-        }
+        ResPath { name: filename }
     }
     pub fn create_path(&self) -> Result<std::path::PathBuf> {
         let res_path = ResPath::cur_dir()?.join("res");
         if !res_path.exists() {
-            std::fs::create_dir(&res_path).expect(format!("Failed to create dir: {:?}\n\n", &res_path).as_str());
+            std::fs::create_dir(&res_path)
+                .expect(format!("Failed to create dir: {:?}\n\n", &res_path).as_str());
         }
         Ok(res_path.join(self.name))
     }
