@@ -1,9 +1,23 @@
 use anyhow::Result;
 use ureq;
 use url::Url;
-fn client_main() {}
-pub fn client(url: &Url) -> Result<String> {
-    let agent = ureq::AgentBuilder::new().build();
+use native_tls;
+use std::sync::Arc;
+use std::io::{self, prelude::*};
+use std::fs;
+use crate::ResPath;
+
+pub fn client(url: &Url, save: bool, filename: Option<&str>) -> Result<String> {
+    let agent = ureq::AgentBuilder::new()
+        .tls_connector(Arc::new(native_tls::TlsConnector::new()?))
+        .build();
     let resp = agent.get(&url.as_str()).call()?;
-    Ok(resp.into_string()?)
+    let page = resp.into_string()?;
+    if save {
+       let filename = ResPath {name: filename.unwrap_or("None")}.new()?;
+       let f = fs::File::create(filename)?;
+       let mut writer = io::BufWriter::new(f); 
+       writer.write(page.as_bytes()).expect("Error writing file.\n\n");
+    }
+    Ok(page)
 }
